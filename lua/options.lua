@@ -1,83 +1,42 @@
--- Enable line number
-vim.o.number = true
+-- stylua: ignore start
 
--- Enable mouse support in Normal and Visual modes
-vim.o.mouse = 'nv'
+vim.opt.completeopt = { 'menu', 'menuone', 'popup', 'noselect', 'fuzzy' } -- great completion menu
+vim.opt.pumheight = 12    -- limit number of completion items
+vim.opt.pummaxwidth = 100 -- limit horizontal size of completion list
 
--- Mode is already shown in the status line
-vim.o.showmode = false
+vim.opt.foldlevel = 100     -- start with all folds opened
+vim.opt.foldmethod = 'expr' -- use tree-sitter folding
+vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 
--- Sync clipboard between OS and Neovim
-vim.schedule(function()
-  vim.o.clipboard = 'unnamedplus'
-end)
+vim.opt.clipboard = { 'unnamed', 'unnamedplus' } -- use operating system clipboards
 
--- Use for 4 spaces for indentation
-vim.o.tabstop = 4
-vim.o.softtabstop = 4
-vim.o.shiftwidth = 4
-vim.o.expandtab = true
-vim.o.smartindent = true
+vim.opt.mouse = 'a'           -- always enable mouse
 
--- Configure visual line wrapping
-vim.o.breakindent = true
-vim.o.wrap = true
+vim.opt.termguicolors = true  -- force 24-bit color
 
--- Allow virtual editing in Visual block mode
-vim.o.virtualedit = 'block'
+vim.opt.cursorline = true     -- show cursor line
 
--- Enable undo history
-vim.o.undofile = true
+vim.opt.number = true         -- show current line number
+vim.opt.relativenumber = true -- use relative line numbers
 
--- Case-insensitive searching unless \C or capital in search
-vim.o.ignorecase = true
-vim.o.smartcase = true
+vim.opt.signcolumn = 'yes'    -- always show sign column
 
--- Keep signcolumn on by default
-vim.o.signcolumn = 'yes'
+vim.opt.diffopt:append('linematch:60') -- improve diff mode lines alignment
 
--- Show some control characters
-vim.o.list = true
-vim.o.listchars = 'tab:⇥ ,trail:·,nbsp:⍽'
+vim.opt.confirm = true     -- show dialog for unsaved files
+vim.opt.updatetime = 200   -- save swap file with 200ms debouncing
 
--- Highlight current line and column 80
-vim.o.cursorline = true
-vim.o.colorcolumn = '80'
+vim.opt.ignorecase = true  -- case-insensitive search
+vim.opt.smartcase = true   -- uppercase characters enable case-sensitive search
 
--- Leave some space above and below the cursor
-vim.o.scrolloff = 8
+vim.opt.smartindent = true -- automatic indent on newline
+vim.opt.shiftround = true  -- round indent to multiple of 'shiftwidth'
+vim.opt.shiftwidth = 0     -- follow 'tabstop'
+vim.opt.tabstop = 4        -- tab width
 
--- Reduce update time
-vim.o.updatetime = 250
-vim.o.timeoutlen = 300
+vim.opt.undofile = true    -- persistent undo history
+vim.opt.undolevels = 10000 -- more undo levels
 
--- Split right and below
-vim.o.splitright = true
-vim.o.splitbelow = true
+vim.g.mapleader = vim.keycode('<space>') -- define <leader> key
 
--- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menu,menuone,preview'
-
--- Enable 24-bit RGB color
-vim.o.termguicolors = true
-
--- [[ Hybrid line number ]]
-local number_group = vim.api.nvim_create_augroup('HybridNumber', { clear = true })
-vim.api.nvim_create_autocmd({ 'BufEnter', 'FocusGained', 'InsertLeave', 'WinEnter' }, {
-  callback = function()
-    if not vim.o.relativenumber then -- avoid first redraw
-      vim.o.relativenumber = true
-    end
-  end,
-  group = number_group,
-  pattern = '*',
-})
-vim.api.nvim_create_autocmd({ 'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave' }, {
-  callback = function()
-    vim.o.relativenumber = false
-  end,
-  group = number_group,
-  pattern = '*',
-})
-
--- vim: ts=2 sts=2 sw=2 et
+-- stylua: ignore end

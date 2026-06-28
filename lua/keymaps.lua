@@ -1,36 +1,25 @@
--- [[ Set basic keymaps ]]
--- Don't move the cursor when pressing space
-vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+vim.keymap.set('i', '<cr>', function()
+  return vim.fn.pumvisible() == 1 and '<c-y>' or '<cr>'
+end, { expr = true })
 
--- Nice vertical movements on word wrapping
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+-- Edit
+vim.keymap.set('n', '<leader>ed', '<cmd>lua MiniFiles.open()<cr>')
+vim.keymap.set('n', '<leader>ef', '<cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>')
+vim.keymap.set('n', '<leader>ei', '<cmd>edit $MYVIMRC<cr>')
 
--- Clear highlighting of search results
-vim.keymap.set('n', ',<Space>', ':nohlsearch<CR>')
+-- Find
+vim.keymap.set('n', '<leader>fb', '<cmd>Pick buffers<cr>')
+vim.keymap.set('n', '<leader>fd', '<cmd>Pick diagnostic<cr>')
+vim.keymap.set('n', '<leader>ff', '<cmd>Pick files<cr>')
+vim.keymap.set('n', '<leader>fg', '<cmd>Pick grep_live<cr>')
+vim.keymap.set('n', '<leader>fh', '<cmd>Pick help<cr>')
+vim.keymap.set('n', '<leader>fk', '<cmd>Pick keymaps<cr>')
+vim.keymap.set('n', '<leader>fr', '<cmd>Pick resume<cr>')
+vim.keymap.set('n', '<leader>fs', '<cmd>Pick lsp scope="workspace_symbol_live"<cr>')
 
--- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+-- Language
+vim.keymap.set('n', '<leader>lf', '<cmd>lua require("conform").format()<cr>')
 
--- Easy exit from terminal mode
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
-
--- Split navigation with CTRL+<hjkl>
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-
--- [[ Highlight on yank ]]
-vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight when yanking text',
-  group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
-  callback = function()
-    vim.hl.on_yank()
-  end,
-})
-
--- vim: ts=2 sts=2 sw=2 et
+-- LSP (see https://neovim.io/doc/user/lsp/#lsp-defaults)
+vim.keymap.set('n', 'grd', '<cmd>lua vim.lsp.buf.definition()<cr>')
+vim.keymap.set('n', 'grD', '<cmd>lua vim.lsp.buf.declaration()<cr>')

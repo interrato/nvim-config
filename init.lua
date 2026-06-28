@@ -1,29 +1,16 @@
--- [[ Set <Space> as the leader key ]]
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+if vim.fn.has('nvim-0.12') == 0 then
+  vim.notify('This configuration only supports Neovim 0.12+', vim.log.levels.ERROR)
+  return
+end
 
--- [[ Set options ]]
+vim.loader.enable()
+
+require('filetypes')
 require('options')
-
--- [[ Set basic keymaps ]]
+require('plugins')
 require('keymaps')
+require('treesitter')
+require('lsp')
 
--- [[ Install `lazy.nvim` as the plugin manager ]]
-require('lazy_bootstrap')
-
--- [[ Configure plugins ]]
-require('lazy_plugins')
-
--- [[ Configure Telescope ]]
--- Lazy loaded from lua/plugins/editor.lua
-
--- [[ Configure LSP ]]
--- Lazy loaded from lua/plugins/lsp.lua
-
--- [[ Configure autocompletion ]]
--- Lazy loaded from lua/plugins/cmp.lua
-
--- [[ Configure Treesitter ]]
--- Lazy loaded from lua/plugins/treesitter.lua
-
--- vim: ts=2 sts=2 sw=2 et
+-- TODO(interrato): theme
+vim.cmd('syntax off')
