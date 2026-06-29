@@ -40,6 +40,7 @@ vim.lsp.semantic_tokens.enable(false)
 vim.lsp.enable({
   'asm_lsp',
   'bashls',
+  'clangd',
   'gopls',
   'lua_ls',
   'nil_ls',
