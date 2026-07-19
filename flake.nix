@@ -7,9 +7,9 @@
     { self, nixpkgs }:
     let
       forAllSystems =
-        pkgsFn:
+        packagesFn:
         nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (
-          system: pkgsFn nixpkgs.legacyPackages.${system}
+          system: packagesFn nixpkgs.legacyPackages.${system}
         );
     in
     {
