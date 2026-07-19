@@ -33,10 +33,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 vim.lsp.codelens.enable()
 vim.lsp.inlay_hint.enable()
 
--- TODO(interrato): theme
-vim.lsp.document_color.enable(false)
-vim.lsp.semantic_tokens.enable(false)
-
 vim.lsp.enable({
   'asm_lsp',
   'bashls',

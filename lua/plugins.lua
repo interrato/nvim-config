@@ -1,7 +1,10 @@
 vim.pack.add({
+  'https://github.com/interrato/burro',
   'https://github.com/nvim-mini/mini.nvim',
   'https://github.com/stevearc/conform.nvim',
 })
+
+vim.cmd.colorscheme('burro')
 
 require('mini.completion').setup({
   window = {

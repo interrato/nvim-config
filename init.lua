@@ -11,6 +11,3 @@ require('plugins')
 require('keymaps')
 require('treesitter')
 require('lsp')
-
--- TODO(interrato): theme
-vim.cmd('syntax off')
