@@ -23,3 +23,10 @@ vim.keymap.set('n', '<leader>lf', '<cmd>lua require("conform").format()<cr>')
 -- LSP (see https://neovim.io/doc/user/lsp/#lsp-defaults)
 vim.keymap.set('n', 'grd', '<cmd>lua vim.lsp.buf.definition()<cr>')
 vim.keymap.set('n', 'grD', '<cmd>lua vim.lsp.buf.declaration()<cr>')
+
+-- Insert the current date
+vim.keymap.set('n', '<f5>', function()
+  local today = os.date('%Y-%m-%d')
+  ---@cast today string
+  vim.api.nvim_put({ today }, 'c', true, false)
+end)
