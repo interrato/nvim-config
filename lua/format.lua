@@ -5,6 +5,11 @@ require('conform').setup({
     nix = { 'nixfmt' },
     typst = { 'typstyle' },
   },
+  formatters = {
+    typstyle = {
+      append_args = { '--line-width', '100' },
+    },
+  },
   format_on_save = function(bufnr)
     local ignore_filetypes = { 'css', 'html', 'nix' }
     if vim.tbl_contains(ignore_filetypes, vim.bo[bufnr].filetype) then
