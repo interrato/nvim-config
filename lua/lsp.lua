@@ -37,6 +37,7 @@ vim.lsp.enable({
   'asm_lsp',
   'bashls',
   'clangd',
+  'docker_language_server',
   'gopls',
   'lua_ls',
   'nil_ls',
